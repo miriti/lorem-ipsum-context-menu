@@ -77,10 +77,19 @@ function onClickHandler(info, tab) {
          insertText = getLorem(10, "w");
          break;
       case "wordUser":
+         var cnt = prompt("Insert number of words to insert", "10");
+         if(!isNaN(parseFloat(cnt)) && isFinite(cnt))
+         {
+            insertText = getLorem(Math.floor(cnt), "w");
+         }else{
+            alert(cnt + " is not valid number!");
+         }
          break;
    }
 
-   chrome.tabs.sendMessage(tab.id, { text: insertText }, function(response) { });
+   if(insertText != "") {
+      chrome.tabs.sendMessage(tab.id, { text: insertText });
+   }
 };
 
 chrome.contextMenus.onClicked.addListener(onClickHandler);

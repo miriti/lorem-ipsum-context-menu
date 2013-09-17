@@ -1,6 +1,5 @@
 function onMessage(request, sender, sendResponse) {
-   $(':focus').val(request.text);
-   sendResponse({ inserted: true });
+   $(':focus').val( $(':focus').val() + request.text );
 }
 
 console.log('hi, i am here again!!');
