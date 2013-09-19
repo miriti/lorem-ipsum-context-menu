@@ -1,17 +1,26 @@
+/*!
+ * Lorem Ipsum Context Menu
+ *
+ * Includes jQuery JavaScript Library v1.10.2
+ * http://jquery.com/
+ *
+ */
 {
    "manifest_version": 2,
 
    "name": "Lorem Ipsum Context Menu",
    "description": "This extension allows to insert Lorem Ipsum placeholer text in any input area with options",
-   "version": "0.1.2",
+   "version": "0.9.0",
 
    "permissions": [
       "contextMenus"
    ],
    
    "icons": {
-     "16": "icon_016.png",
-     "48": "icon_048.png"
+     "16":  "icon_016.png",
+     "32":  "icon_032.png",
+     "48":  "icon_048.png",     
+     "128": "icon_128.png"
     },
 
     "background": {        
@@ -20,8 +29,7 @@
     },
 
     "content_scripts": [ {
-        "matches": ["*://*/*"],
-        "js": ["jquery.js", "content.js"],
-        "run_at": "document_end"
+        "matches": ["*://*/*", "file://*/*"],
+        "js": ["jquery.js", "content.js"]
     }]
 }
