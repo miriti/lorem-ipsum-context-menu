@@ -4,6 +4,9 @@
  * Includes jQuery JavaScript Library v1.10.2
  * http://jquery.com/
  *
+ * Includes jQuery FancyBox v1.3.4
+ * http://fancybox.net/
+ *
  */
 (function() {
     var loremIpsum = [
@@ -126,12 +129,26 @@
             }
         }
         ]
+    },
+    {
+        "title": "Insert last text",
+        "callback": function (info, tab) {
+            return lastText;
+        } 
+    },
+    {
+        "title": "Show instead of insert",
+        "type": "checkbox", 
+        "callback": function (info, tab) {
+            currentAction = info.checked ? "show" : "insert";
+        }
     }
     ];
 
     var functionsMap = {};
-
     var surroundParagraph = false;
+    var lastText = "";
+    var currentAction = "insert";
 
     function getLorem(count, type) {
 
@@ -185,7 +202,6 @@
                 break;
             }
 
-            console.log(result);
             return result;
         }else{
             alert("Invalid number!");
@@ -199,8 +215,11 @@
         if(typeof(functionsMap[info.menuItemId]) != "undefined") {
             insertText = functionsMap[info.menuItemId](info, tab);
 
-            if(insertText != "") {
-                chrome.tabs.sendMessage(tab.id, { text: insertText });
+            if((typeof(insertText) == "string") && (insertText != "")) {
+                chrome.tabs.sendMessage(tab.id, { "text": insertText, "action": currentAction });
+                if(insertText != lastText) {
+                    lastText = insertText;
+                }
             }
         }
     };
